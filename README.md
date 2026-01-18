@@ -23,20 +23,23 @@ The output is a structured `plan.md` with tasks that Ralph can execute one at a 
 ## Quick Start
 
 ```bash
-# 1. Create your project and clone ralph-builder into it
+# 1. Clone ralph-builder (keep this copy for updates)
+git clone https://github.com/digitalsamba/ralph-builder.git
+
+# 2. Create your project and copy ralph-builder into it
 mkdir my-project && cd my-project
 git init
-git clone https://github.com/digitalsamba/ralph-builder.git ralph-builder
+cp -r ../ralph-builder . && rm -rf ralph-builder/.git
 
-# 2. Start Claude Code
+# 3. Start Claude Code
 claude
 
-# 3. Ask Claude to set up your project
+# 4. Ask Claude to set up your project
 > Help me set up this project using Ralph Builder
 
-# 4. Claude will guide you through PRD creation and generate files
+# 5. Claude will guide you through PRD creation and generate files
 
-# 5. Run the loop
+# 6. Run the loop
 ./ralph-builder/ralph.sh
 ```
 
