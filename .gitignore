@@ -8,8 +8,7 @@
 # OS
 .DS_Store
 
-# Files generated when ralph-builder is used in a project
-# (These should be gitignored in the target project, not here)
+# Files generated during setup (not part of ralph-builder source)
 plan.md
 PROMPT.md
 activity.md
