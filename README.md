@@ -23,11 +23,12 @@ The output is a structured `plan.md` with tasks that Ralph can execute one at a 
 ## Quick Start
 
 ```bash
-# 1. Copy ralph-builder to your new project
-cp -r ralph-builder/ /path/to/your-project/
+# 1. Create your project and clone ralph-builder into it
+mkdir my-project && cd my-project
+git init
+git clone https://github.com/digitalsamba/ralph-builder.git ralph-builder
 
-# 2. Open Claude Code in your project
-cd /path/to/your-project
+# 2. Start Claude Code
 claude
 
 # 3. Ask Claude to set up your project
@@ -35,8 +36,7 @@ claude
 
 # 4. Claude will guide you through PRD creation and generate files
 
-# 5. Make executable (if needed) and run
-chmod +x ralph-builder/ralph.sh
+# 5. Run the loop
 ./ralph-builder/ralph.sh
 ```
 
@@ -58,12 +58,12 @@ After setup, your project will have:
 my-project/                       ← your project root
 ├── .claude/settings.json         ← tool permissions (generated)
 ├── .env                          ← your credentials (you create)
+├── CLAUDE.md                     ← project context (generated)
 ├── ralph-builder/                ← this toolkit
 │   ├── ralph.sh                  ← main loop script
 │   ├── SETUP-GUIDE.md            ← setup instructions
 │   ├── plan.md                   ← PRD with task arrays (generated)
 │   ├── PROMPT.md                 ← iteration instructions (generated)
-│   ├── CLAUDE.md                 ← project context (generated)
 │   ├── activity.md               ← progress log (generated)
 │   └── .ralph-logs/              ← execution logs
 └── src/                          ← your project code
@@ -75,8 +75,8 @@ my-project/                       ← your project root
 |------|---------|
 | **ralph-builder/plan.md** | Full PRD: overview, goals, success criteria, `tasks` array, `backlog` array |
 | **ralph-builder/PROMPT.md** | Tells Ralph what to do each iteration: read plan, do one task, verify, commit, exit |
-| **ralph-builder/CLAUDE.md** | Project context: tech stack, constraints, required env vars |
 | **ralph-builder/activity.md** | Log of what Ralph did each iteration |
+| **CLAUDE.md** | Project context: tech stack, constraints, required env vars |
 | **.claude/settings.json** | Tool permissions based on your tech stack |
 
 ## Task Format
@@ -241,7 +241,7 @@ Check your `PROMPT.md` - it must clearly say:
 │  ┌──────────────────────────────────────────────────────┐   │
 │  │  Iteration N                                         │   │
 │  │  1. Fresh Claude context                             │   │
-│  │  2. Read ralph-builder/PROMPT.md → find task         │   │
+│  │  2. Read PROMPT.md + CLAUDE.md → find task           │   │
 │  │  3. Implement + verify                               │   │
 │  │  4. Update ralph-builder/plan.md + activity.md       │   │
 │  │  5. Commit changes                                   │   │

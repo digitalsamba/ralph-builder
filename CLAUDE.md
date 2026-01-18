@@ -14,12 +14,12 @@ Make ralph-builder portable and open source. Users clone it into their greenfiel
 my-project/                      ← PROJECT_DIR (code lives here)
 ├── .claude/settings.json        ← Must be at project root (Claude requirement)
 ├── .env                         ← User's secrets (not committed)
+├── CLAUDE.md                    ← Generated project context
 ├── ralph-builder/               ← BUILDER_DIR (cloned into project)
 │   ├── ralph.sh                 ← Main loop script
 │   ├── SETUP-GUIDE.md           ← Interactive PRD interview
 │   ├── plan.md                  ← Generated task database
 │   ├── PROMPT.md                ← Generated iteration instructions
-│   ├── CLAUDE.md                ← Generated project context
 │   ├── activity.md              ← Progress log
 │   └── .ralph-logs/             ← Execution logs
 └── src/                         ← Actual project code
@@ -27,7 +27,7 @@ my-project/                      ← PROJECT_DIR (code lives here)
 
 ### Key Design Decisions
 
-1. **Generated files stay in ralph-builder/** - They're part of the builder, not the project source code
+1. **Most generated files stay in ralph-builder/** - Except CLAUDE.md which goes at project root for better visibility
 
 2. **ralph.sh uses two paths:**
    - `BUILDER_DIR` = where ralph.sh and config files live (`ralph-builder/`)
@@ -42,11 +42,11 @@ my-project/                      ← PROJECT_DIR (code lives here)
    git clone https://github.com/xxx/ralph-builder ./ralph-builder
    ```
 
-6. **PROMPT.md references ralph-builder/ paths:**
+6. **PROMPT.md references paths:**
    ```markdown
    Read `ralph-builder/plan.md` and find the first task...
    Update `ralph-builder/activity.md`...
-   Reference `ralph-builder/CLAUDE.md` for project context.
+   Reference `CLAUDE.md` (at project root) for project context.
    ```
 
 ## Attribution

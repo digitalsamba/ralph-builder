@@ -13,10 +13,10 @@ You are helping the user create a complete project setup for autonomous Claude C
 **In ralph-builder/ directory:**
 1. **ralph-builder/plan.md** - Full PRD with task arrays
 2. **ralph-builder/PROMPT.md** - Iteration behavior instructions
-3. **ralph-builder/CLAUDE.md** - Project context
-4. **ralph-builder/activity.md** - Empty progress log
+3. **ralph-builder/activity.md** - Empty progress log
 
 **At project root:**
+4. **CLAUDE.md** - Project context (tech stack, env vars, constraints)
 5. **.claude/settings.json** - Tool permissions (Claude requires this location)
 
 ---
@@ -231,7 +231,9 @@ MVP features go in `tasks` array. Future features go in `backlog` array.
 
 ## File Generation
 
-**IMPORTANT:** All files except `.claude/settings.json` go in the `ralph-builder/` directory.
+**IMPORTANT:**
+- `plan.md`, `PROMPT.md`, `activity.md` go in `ralph-builder/`
+- `CLAUDE.md` and `.claude/settings.json` go at **project root**
 
 ### ralph-builder/plan.md
 
@@ -290,7 +292,7 @@ Use this template - it follows the Ralph Wiggum methodology:
 You are Ralph, an autonomous agent. Each iteration:
 
 ## 1. Read Context
-Read `ralph-builder/CLAUDE.md`, `ralph-builder/plan.md`, and `ralph-builder/activity.md` to understand the project and current state.
+Read `CLAUDE.md`, `ralph-builder/plan.md`, and `ralph-builder/activity.md` to understand the project and current state.
 
 ## 2. Find Next Task
 In `ralph-builder/plan.md`, find the first task in the `tasks` array where `"passes": false`.
@@ -331,7 +333,7 @@ Do NOT continue to the next task. Fresh context each iteration is the point.
 - Use Context7 for library docs when available
 ```
 
-### ralph-builder/CLAUDE.md
+### CLAUDE.md (at project root)
 
 Generate based on conversation:
 
@@ -401,7 +403,7 @@ ralph-builder/activity.md
 .commit-msg.txt
 ```
 
-This keeps runtime logs and activity out of version control while preserving the important configuration files (`ralph-builder/plan.md`, `ralph-builder/PROMPT.md`, `ralph-builder/CLAUDE.md`).
+This keeps runtime logs and activity out of version control while preserving the important configuration files (`ralph-builder/plan.md`, `ralph-builder/PROMPT.md`, `CLAUDE.md`).
 
 ### .claude/settings.json
 
