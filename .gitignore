@@ -1,0 +1,15 @@
+# Logs
+.ralph-logs/
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+
+# Files generated when ralph-builder is used in a project
+# (These should be gitignored in the target project, not here)
+plan.md
+PROMPT.md
+activity.md
