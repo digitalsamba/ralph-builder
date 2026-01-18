@@ -27,9 +27,9 @@
 #   - PROMPT.md              Instructions read each iteration
 #   - plan.md                PRD with JSON task arrays
 #   - activity.md            Progress log
-#   - CLAUDE.md              Project context
 #
 # Required files in project root:
+#   - CLAUDE.md              Project context
 #   - .claude/settings.json  Tool permissions (see settings.template.json)
 #
 # Required permissions in .claude/settings.json:
@@ -290,7 +290,7 @@ validate_setup() {
     echo ""
 
     # Required files in ralph-builder/
-    local required_files=("PROMPT.md" "plan.md" "activity.md" "CLAUDE.md")
+    local required_files=("PROMPT.md" "plan.md" "activity.md")
     for file in "${required_files[@]}"; do
         if [ -f "$BUILDER_DIR/$file" ]; then
             echo -e "  ${GREEN}✓${NC} ralph-builder/$file"
@@ -299,6 +299,14 @@ validate_setup() {
             ((errors++))
         fi
     done
+
+    # CLAUDE.md at project root
+    if [ -f "$PROJECT_DIR/CLAUDE.md" ]; then
+        echo -e "  ${GREEN}✓${NC} CLAUDE.md"
+    else
+        echo -e "  ${RED}✗${NC} CLAUDE.md (missing)"
+        ((errors++))
+    fi
 
     # Settings file at project root
     if [ -f "$PROJECT_DIR/.claude/settings.json" ]; then
