@@ -2,12 +2,23 @@
 
 A toolkit for creating solid PRDs and running autonomous Claude Code loops.
 
-Based on the [Ralph Wiggum methodology](https://github.com/JeredBlu/guides/blob/main/Ralph_Wiggum_Guide.md) - fresh context each iteration, no bloat, tasks until done.
+Based on [Geoff Huntley's Ralph](https://ghuntley.com/ralph/) - fresh context each iteration, no bloat, tasks until done.
 
 ## What It Does
 
-1. **Setup Phase**: Claude guides you through creating a PRD, generating all required files
+1. **Setup Phase**: Claude interviews you about your project, then generates a PRD with atomic tasks
 2. **Execution Phase**: Bash loop runs Claude iteratively with fresh context until complete
+
+### The Planning Interview
+
+When you start setup, Claude walks you through:
+
+- **Project definition** - What are you building? Who is it for?
+- **Tech stack** - Language, framework, testing (Claude recommends defaults if unsure)
+- **External services** - APIs, databases, credentials needed
+- **Feature breakdown** - Breaking features into atomic, verifiable tasks
+
+The output is a structured `plan.md` with tasks that Ralph can execute one at a time.
 
 ## Quick Start
 
@@ -44,18 +55,18 @@ Without Context7, Ralph relies on training knowledge which may use outdated patt
 After setup, your project will have:
 
 ```
-your-project/
-├── .claude/
-│   └── settings.json     # Tool permissions (auto-generated)
-├── .env                  # Your credentials (you create this)
-└── ralph-builder/        # This toolkit
-    ├── ralph.sh          # Main loop script
-    ├── SETUP-GUIDE.md    # Setup instructions (read by Claude)
-    ├── CLAUDE.md         # Project context + required env vars
-    ├── PROMPT.md         # Iteration behavior instructions
-    ├── plan.md           # Full PRD with task arrays
-    ├── activity.md       # Progress log
-    └── .ralph-logs/      # Execution logs
+my-project/                       ← your project root
+├── .claude/settings.json         ← tool permissions (generated)
+├── .env                          ← your credentials (you create)
+├── ralph-builder/                ← this toolkit
+│   ├── ralph.sh                  ← main loop script
+│   ├── SETUP-GUIDE.md            ← setup instructions
+│   ├── plan.md                   ← PRD with task arrays (generated)
+│   ├── PROMPT.md                 ← iteration instructions (generated)
+│   ├── CLAUDE.md                 ← project context (generated)
+│   ├── activity.md               ← progress log (generated)
+│   └── .ralph-logs/              ← execution logs
+└── src/                          ← your project code
 ```
 
 ### File Responsibilities
@@ -251,7 +262,8 @@ Check your `PROMPT.md` - it must clearly say:
 
 ## References
 
-- [Ralph Wiggum Guide](https://github.com/JeredBlu/guides/blob/main/Ralph_Wiggum_Guide.md) - Original methodology
+- [Geoff Huntley's Ralph](https://ghuntley.com/ralph/) - Original concept
+- [Ralph Wiggum Guide](https://github.com/JeredBlu/guides/blob/main/Ralph_Wiggum_Guide.md) - Community guide
 - [PRPs-agentic-eng](https://github.com/Wirasm/PRPs-agentic-eng) - PRP workflow patterns
 - [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) - Claude Code ecosystem
 - [Context7 MCP](https://github.com/upstash/context7) - Library documentation lookup
