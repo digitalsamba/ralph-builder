@@ -76,7 +76,7 @@ my-project/                       ← your project root
 | **ralph-builder/plan.md** | Full PRD: overview, goals, success criteria, `tasks` array, `backlog` array |
 | **ralph-builder/PROMPT.md** | Tells Ralph what to do each iteration: read plan, do one task, verify, commit, exit |
 | **ralph-builder/activity.md** | Log of what Ralph did each iteration |
-| **CLAUDE.md** | Full project context for Ralph: tech stack, structure, env vars, commands, constraints |
+| **CLAUDE.md** | Project documentation for Claude Code (tech stack, conventions, commands) |
 | **.claude/settings.json** | Tool permissions based on your tech stack |
 
 ## Task Format
