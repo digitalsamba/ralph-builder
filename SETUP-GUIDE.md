@@ -16,31 +16,58 @@ You are helping the user create a complete project setup for autonomous Claude C
 3. **ralph-builder/activity.md** - Empty progress log
 
 **At project root:**
-4. **CLAUDE.md** - Project context (tech stack, env vars, constraints)
+4. **CLAUDE.md** - Project context (tech stack, env vars, constraints) — **must be named exactly CLAUDE.md**
 5. **.claude/settings.json** - Tool permissions (Claude requires this location)
+
+---
+
+## IMPORTANT: Interview Required
+
+**DO NOT generate any files until you have completed the interview.**
+
+The interview serves critical purposes:
+- **Disambiguation** — A project name could mean many different things
+- **Scope control** — Define MVP clearly, prevent feature creep
+- **Context transfer** — Capture user's domain knowledge
+- **Error prevention** — Catch misunderstandings before 50 iterations run
+
+You MUST:
+1. Complete all interview phases (1-6) before generating files
+2. Wait for user responses — do not assume or infer
+3. Summarize your understanding and get confirmation before generating
+
+DO NOT:
+- Infer the project from folder names or existing files
+- Skip questions because you think you know the answer
+- Generate files without explicit user confirmation
+
+If the project folder already has generated files (plan.md, PROMPT.md, etc.), ask:
+> "I see existing Ralph Builder files. Are we starting fresh or continuing a previous setup?"
 
 ---
 
 ## Conversation Flow
 
-### Phase 1: Understand the Project
+### Phase 1: Understand the Project (REQUIRED)
 
-Ask about the project idea. Adapt your questions based on responses - don't be robotic.
+**You MUST ask about the project.** Do not proceed until answered.
 
 **Areas to explore:**
 
 - **What are you building?** Get a clear description of the project
 - **Why?** What problem does it solve? Who is it for?
+- **Greenfield or existing?** Brand new project or adding to existing code?
 - **Success criteria** - How do we know when it's done?
 
 **Example questions:**
 - "What's the project you want to build?"
+- "Is this a brand new project or are we adding to existing code?"
 - "Who will use this and what problem does it solve for them?"
 - "If this project is successful, what does that look like?"
 
-### Phase 2: Technical Details
+### Phase 2: Technical Details (REQUIRED)
 
-Understand the tech stack to generate appropriate permissions. **Many users won't know what to choose - offer recommendations based on the project.**
+Understand the tech stack to generate appropriate permissions. **Many users won't know what to choose — offer recommendations based on the project.**
 
 **Areas to explore:**
 
@@ -49,6 +76,7 @@ Understand the tech stack to generate appropriate permissions. **Many users won'
 - **Package manager** - npm, pip, cargo, etc.
 - **Testing approach** - Jest, pytest, vitest, etc.
 - **Database** - SQLite for MVP, or production databases
+- **Deployment target** - Local only, Docker, cloud?
 - **Build tools** - If any
 
 **Approach:**
@@ -86,7 +114,7 @@ This approach:
 
 **Don't assume expertise** - guide users toward sensible defaults while respecting their preferences.
 
-### Phase 3: External Services & Credentials
+### Phase 3: External Services & Credentials (REQUIRED)
 
 Identify services that need credentials.
 
@@ -103,7 +131,7 @@ Identify services that need credentials.
 
 Document required environment variables in CLAUDE.md (names only, not values).
 
-### Phase 4: Check Context7 MCP
+### Phase 4: Check Context7 MCP (REQUIRED)
 
 Context7 provides up-to-date library documentation.
 
@@ -113,7 +141,7 @@ Context7 provides up-to-date library documentation.
 If yes: Note in CLAUDE.md that Context7 is available.
 If no: Warn that Ralph will rely on training knowledge which may be outdated. Suggest installing it.
 
-### Phase 5: Feature Breakdown
+### Phase 5: Feature Breakdown (REQUIRED)
 
 Break the project into features, then tasks.
 
@@ -122,6 +150,26 @@ Break the project into features, then tasks.
 2. For each feature, break into **truly atomic** tasks
 3. Each task should be completable in one iteration
 4. Each task needs a **single** verification criterion
+
+**Also ask:**
+- "Are there any parts of this you're particularly worried about or expect to be tricky?"
+- "What's the priority — fast working prototype or production-quality from the start?"
+
+### Phase 6: Summary & Confirmation (REQUIRED)
+
+**Before generating any files**, summarize your understanding and get explicit confirmation.
+
+**Say something like:**
+> "Here's what I understand:
+> - **Project**: [description]
+> - **Tech stack**: [language, framework, database]
+> - **MVP features**: [list]
+> - **Backlog**: [list]
+> - **Environment variables needed**: [list]
+>
+> Does this look right? Any changes before I generate the plan?"
+
+**Wait for user confirmation before proceeding to file generation.**
 
 ---
 
@@ -216,16 +264,6 @@ If any answer is "no" or "maybe", split the task.
 - "Implement user authentication" → too many pieces
 - "Create API client with all methods" → split by method
 - "Set up testing with sample tests" → install and config are separate
-
-### Phase 6: MVP vs Backlog
-
-Determine what's MVP and what's future work.
-
-**Ask:**
-- "Which features are essential for an MVP?"
-- "Anything you want to build eventually but not right now?"
-
-MVP features go in `tasks` array. Future features go in `backlog` array.
 
 ---
 
