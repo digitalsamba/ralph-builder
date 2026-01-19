@@ -33,10 +33,8 @@
 #   - .claude/settings.json  Tool permissions (see settings.template.json)
 #
 # Required permissions in .claude/settings.json:
-#   - Bash(git add *)
-#   - Bash(git add -A)
-#   - Bash(git add -A && git commit *)  <- important for combined commands
-#   - Bash(git commit *)
+#   - Bash(git add:*)
+#   - Bash(git commit:*)  <- colon syntax required for multiline commits
 #   - Read, Write, Edit, Glob, Grep
 #
 # Exit signals:
