@@ -195,6 +195,8 @@ The `.claude/settings.json` file needs permissions. During setup, Claude generat
       "Bash(npm *)",
       "Bash(node *)",
       "Bash(git add:*)",
+      "Bash(git add -A)",
+      "Bash(git add -A && git commit:*)",
       "Bash(git commit:*)",
       "Read", "Write", "Edit", "Glob", "Grep"
     ],

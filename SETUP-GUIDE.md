@@ -356,8 +356,20 @@ git commit -m "feat: [task description]"
 
 **CRITICAL: Do ONE task per iteration, then EXIT.**
 
-- If ALL tasks have `"passes": true`: Output `<promise>COMPLETE</promise>`
-- If you completed one task: EXIT immediately. The bash loop starts the next iteration.
+**Before signaling COMPLETE, you MUST run this check:**
+```bash
+sed -n '/^```json$/,/^```$/p' ralph-builder/plan.md | sed '1d;$d' | jq '[.tasks[] | select(.passes == false)] | length'
+```
+- If result is `0` → ALL MVP tasks are done, signal COMPLETE
+- If result is `> 0` → tasks remain, EXIT and let the loop start the next iteration
+- This checks ONLY the `tasks` array (not `backlog`)
+
+When the jq check returns `0`:
+```
+<promise>COMPLETE</promise>
+```
+
+- If you completed one task but tasks remain: EXIT immediately. The bash loop starts the next iteration.
 - If you are stuck and cannot proceed: Output `<promise>BLOCKED</promise>`
 
 Do NOT continue to the next task. Fresh context each iteration is the point.
@@ -458,6 +470,8 @@ Based on tech stack:
       "Bash(npx *)",
       "Bash(node *)",
       "Bash(git add:*)",
+      "Bash(git add -A)",
+      "Bash(git add -A && git commit:*)",
       "Bash(git commit:*)",
       "Bash(mkdir *)",
       "Bash(ls *)",
@@ -487,6 +501,8 @@ Based on tech stack:
       "Bash(pip *)",
       "Bash(pytest *)",
       "Bash(git add:*)",
+      "Bash(git add -A)",
+      "Bash(git add -A && git commit:*)",
       "Bash(git commit:*)",
       "Bash(mkdir *)",
       "Bash(ls *)",
