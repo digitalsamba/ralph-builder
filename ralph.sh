@@ -52,6 +52,7 @@ set -e
 #-------------------------------------------------------------------------------
 
 MAX_ITERATIONS=100
+MAX_ACTIVITY_LINES=50
 # BUILDER_DIR: where ralph.sh and generated files live (ralph-builder/)
 BUILDER_DIR="$(cd "$(dirname "$0")" && pwd)"
 # PROJECT_DIR: where user code lives (parent of ralph-builder/)
@@ -130,6 +131,43 @@ ralph_quote() {
 #-------------------------------------------------------------------------------
 # Helper Functions
 #-------------------------------------------------------------------------------
+
+rotate_activity_log() {
+    local activity_file="$BUILDER_DIR/activity.md"
+    local archive_file="$BUILDER_DIR/activity.archive.md"
+
+    [ ! -f "$activity_file" ] && return 0
+
+    local total_lines
+    total_lines=$(wc -l < "$activity_file")
+
+    if [ "$total_lines" -le "$MAX_ACTIVITY_LINES" ]; then
+        return 0
+    fi
+
+    local header_lines=5
+    local keep_lines=$MAX_ACTIVITY_LINES
+    local archive_end=$((total_lines - keep_lines))
+
+    # Append rotated lines to archive with timestamp separator
+    {
+        echo ""
+        echo "---"
+        echo "<!-- Rotated at $(date '+%Y-%m-%d %H:%M:%S') -->"
+        echo ""
+        sed -n "$((header_lines + 1)),${archive_end}p" "$activity_file"
+    } >> "$archive_file"
+
+    # Rewrite activity.md = header + kept lines
+    local tmp_file
+    tmp_file=$(mktemp)
+    head -n "$header_lines" "$activity_file" > "$tmp_file"
+    tail -n "$keep_lines" "$activity_file" >> "$tmp_file"
+    mv "$tmp_file" "$activity_file"
+
+    local archived_count=$((archive_end - header_lines))
+    log "Rotated activity log: archived $archived_count lines → activity.archive.md"
+}
 
 show_help() {
     sed -n '1,/^#===.*===$/p' "$0" | grep '^#' | sed 's/^# \?//'
@@ -505,6 +543,7 @@ START_TIME=$(date +%s)
 cd "$PROJECT_DIR"
 
 while [ $ITERATION -lt $MAX_ITERATIONS ]; do
+    rotate_activity_log
     ITERATION=$((ITERATION + 1))
     ITER_START=$(date +%s)
 

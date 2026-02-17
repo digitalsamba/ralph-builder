@@ -442,6 +442,8 @@ Start with:
 ---
 ```
 
+> **Note:** `activity.md` is automatically rotated during long runs. When it exceeds 50 lines, older entries are archived to `activity.archive.md` (preserving the header and most recent entries). No action is needed — this happens transparently at the start of each iteration.
+
 ### Project .gitignore (update at project root)
 
 Append these entries to the project's `.gitignore` (create if needed):
@@ -450,6 +452,7 @@ Append these entries to the project's `.gitignore` (create if needed):
 # Ralph builder (runtime files)
 ralph-builder/.ralph-logs/
 ralph-builder/activity.md
+ralph-builder/activity.archive.md
 .commit-msg.txt
 ```
 

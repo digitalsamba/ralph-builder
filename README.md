@@ -175,6 +175,8 @@ ralph-builder/.ralph-logs/
 └── ralph-20260117_143052.log
 ```
 
+**Activity log rotation:** During long runs, `ralph-builder/activity.md` is automatically rotated to keep the agent's context window small. Older entries are archived to `ralph-builder/activity.archive.md`. The most recent ~50 lines are kept in `activity.md`.
+
 ## Troubleshooting
 
 ### "Missing required files" error
